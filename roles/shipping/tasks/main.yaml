@@ -1,40 +1,68 @@
 
-     - name: install python gcc 
-       ansible.builtin.dnf: 
-          name: "{{ item }}"
-          state: present 
-       loop: 
-         - python3 
-         - gcc
-         - python3-devel 
-         
-     - name: Create roboshop user 
-       ansible.builtin.include_role:
-         name: common 
-         tasks_from: roboshop_user.yaml 
+    - name: Install maven 
+      ansible.builtin.dnf:
+        name: maven 
+        state: present
+    
+    - name: Create roboshop user 
+      ansible.builtin.include_role:
+       name: common 
+       tasks_from: roboshop_user.yaml
+    
+    - name: delete existing and create new app dir 
+      ansible.builtin.include_role: 
+        name: common 
+        tasks_from: app_dir.yaml
+ 
+    - name: delete and get the {{ component }} code 
+      ansible.builtin.include_role: 
+       name: common 
+       tasks_from: app_code.yaml
      
-     - name: delete existing and create new app dir 
-       ansible.builtin.include_role: 
-         name: common 
-         tasks_from: app_dir.yaml
-    
-     - name: delete and get the {{ component }} code 
-       ansible.builtin.include_role: 
-         name: common 
-         tasks_from: app_code.yaml
 
-     - name: Install specified python requirements
-       ansible.builtin.pip:
-          requirements: requirements.txt
-          executable: pip3
-       args:   
-          chdir: /app
+    - name: change dir to /app and run mvn clean package
+      ansible.builtin.command:  mvn clean package 
+      args:
+         chdir: /app
 
+    - name: copy file from target/shipping-1.0.jar shipping.jar 
+      ansible.builtin.copy:
+        src: /app/target/shipping-1.0.jar
+        dest: /app/shipping.jar
+        remote_src: yes
     
-     - name: copy {{ component }} service to /etc/systemd/system/{{ component }}.service
-       ansible.builtin.template:
+
+       
+    - name: Install mysql 
+      ansible.builtin.dnf: 
+        name: mysql 
+        state: present
+
+    - name: Install dependencies for mysql
+      ansible.builtin.pip:
+        name: "{{ item }}"
+      loop: 
+      - PyMySQL
+
+    - name: Create target database if it does not exist
+      community.mysql.mysql_db:
+         name: all
+         login_host: "{{ sql_hostname }}"
+         login_user: "{{ mysql_user }}"
+         login_password: "{{ mysql_password }}"
+         state: import 
+         target: "{{ item }}"
+      loop:
+            - /app/db/schema.sql
+            - /app/db/app-user.sql 
+            - /app/db/master-data.sql
+
+    - name: copy {{ component }} service to /etc/systemd/system/{{ component }}.service
+      ansible.builtin.template:
         src: shipping.service.j2
         dest: /etc/systemd/system/shipping.service
-       notify:
-       - shipping daemon reload
-       - start shipping service
+      notify:
+      - shipping daemon reload
+      - start shipping service
+
+  
