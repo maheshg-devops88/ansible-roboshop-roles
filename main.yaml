@@ -1,0 +1,8 @@
+---
+- name: Deploy the playbook using role 
+  connection: local
+  hosts: all
+  tasks: 
+    - name: Deploy demo role 
+      role:
+         - demo
