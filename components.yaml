@@ -2,4 +2,4 @@
 - name: Configuring {{ Component }}
   hosts: mongodb 
   roles:
-    - {{ Component }}
+    - "{{ Component }}"
