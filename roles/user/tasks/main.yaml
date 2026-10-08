@@ -9,13 +9,11 @@
        name: common 
        tasks_from: roboshop_user.yaml
 
- 
   - name: delete and get the {{ component }} code 
     ansible.builtin.include_role: 
       name: common 
       tasks_from: app_code.yaml
-
-
+  
   - name: Install npm
     community.general.npm:
       path: /app
@@ -26,5 +24,5 @@
       src: "{{ component }}.service.j2"
       dest: /etc/systemd/system/{{ component }}.service
     notify:
-      - "{{ component }} daemon reload"
+      - daemon reload
       - start "{{ component }}" service
