@@ -1,3 +1,13 @@
+  - name: Delete app Directory
+    ansible.builtin.file:
+      name: /app 
+      state: absent
+
+  - name: Create app Directory
+    ansible.builtin.file:
+      name: /app
+      state: directory
+  
   - name: Delete application code in temp directory 
     ansible.builtin.file:
      name: /tmp/{{ component }}.zip
