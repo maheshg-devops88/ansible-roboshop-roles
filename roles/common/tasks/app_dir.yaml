@@ -1,9 +1,0 @@
-  - name: Delete app Directory
-    ansible.builtin.file:
-      name: /app 
-      state: absent
-
-  - name: Create app Directory
-    ansible.builtin.file:
-      name: /app
-      state: directory
