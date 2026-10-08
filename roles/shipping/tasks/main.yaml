@@ -4,16 +4,6 @@
         name: maven 
         state: present
     
-    - name: Create roboshop user 
-      ansible.builtin.include_role:
-       name: common 
-       tasks_from: roboshop_user.yaml
-    
-    - name: delete existing and create new app dir 
-      ansible.builtin.include_role: 
-        name: common 
-        tasks_from: app_dir.yaml
- 
     - name: delete and get the {{ component }} code 
       ansible.builtin.include_role: 
        name: common 

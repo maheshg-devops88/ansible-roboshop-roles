@@ -1,0 +1,4 @@
+- name: Build the roboshop component {{ component }}
+  hosts: {{ component }}
+  roles:
+    - common
