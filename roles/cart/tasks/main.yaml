@@ -9,17 +9,11 @@
        name: common 
        tasks_from: roboshop_user.yaml
 
-  - name: delete existing and create new app dir 
-    ansible.builtin.include_role: 
-      name: common 
-      tasks_from: app_dir.yaml
- 
   - name: delete and get the {{ component }} code 
     ansible.builtin.include_role: 
       name: common 
       tasks_from: app_code.yaml
-
-
+  
   - name: Install npm
     community.general.npm:
       path: /app
@@ -27,8 +21,8 @@
   
   - name: copy {{ component }} service to /etc/systemd/system/{{ component }}.service
     ansible.builtin.template:
-      src: cart.service.j2
-      dest: /etc/systemd/system/cart.service
+      src: "{{ component }}.service.j2"
+      dest: /etc/systemd/system/{{ component }}.service
     notify:
-      - cart daemon reload
-      - start cart service
+      - daemon reload
+      - start "{{ component }}" service
