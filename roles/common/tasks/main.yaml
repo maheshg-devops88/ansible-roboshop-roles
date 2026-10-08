@@ -1,3 +1,3 @@
 - name: Building Roboshop Component 
   ansible.builtin.debug:
-     msg: "creating component {{ component }}"
+     msg: "configuring roboshop component {{ component }}"
