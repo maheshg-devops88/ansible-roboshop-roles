@@ -46,6 +46,12 @@
             - /app/db/schema.sql
             - /app/db/app-user.sql 
             - /app/db/master-data.sql
+   
+    - name: remove {{ component }} service to /etc/systemd/system/{{ component }}.service
+      ansible.builtin.file:
+         path: /etc/systemd/system/{{ component }}.service
+         state: absent
+
 
     - name: copy {{ component }} service to /etc/systemd/system/{{ component }}.service
       ansible.builtin.template:
