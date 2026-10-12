@@ -1,18 +1,16 @@
 
   - name: Enable and install nodejs 
-    ansible.builtin.include_role: 
+    ansible.builtin.import_role: 
       name: common 
       tasks_from: nodejs_install.yaml
        
-  - name: Create roboshop user
-    tags:
-     - deployment 
-    ansible.builtin.include_role:
+  - name: Create roboshop user 
+    ansible.builtin.import_role:
        name: common 
        tasks_from: roboshop_user.yaml
 
   - name: delete and get the {{ component }} code 
-    ansible.builtin.include_role: 
+    ansible.builtin.import_role: 
       name: common 
       tasks_from: app_code.yaml
 
@@ -22,7 +20,7 @@
       state: latest
 
   - name: configure mongosh and upload DB
-    ansible.builtin.include_role:
+    ansible.builtin.import_role:
       name: common 
       tasks_from: mongo_config.yaml 
   

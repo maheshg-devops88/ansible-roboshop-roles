@@ -1,11 +1,11 @@
 
   - name: Enable and install nginx 
-    ansible.builtin.include_role:
+    ansible.builtin.import_role:
       name: common 
       tasks_from: nginx_install.yaml
   
   - name: download nginx app code 
-    ansible.builtin.include_role:
+    ansible.builtin.import_role:
       name: common 
       tasks_from: nginx_app_code.yaml
 

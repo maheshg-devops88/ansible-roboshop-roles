@@ -1,15 +1,15 @@
      - name: Install Python 
-       ansible.builtin.include_role:
+       ansible.builtin.import_role:
          name: common 
          tasks_from: python_install.yaml
          
      - name: Create roboshop user 
-       ansible.builtin.include_role:
+       ansible.builtin.import_role:
         name: common 
         tasks_from: roboshop_user.yaml
      
      - name: delete and get the {{ component }} code 
-       ansible.builtin.include_role: 
+       ansible.builtin.import_role: 
         name: common 
         tasks_from: app_code.yaml
 
