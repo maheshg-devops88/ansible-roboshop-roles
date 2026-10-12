@@ -4,6 +4,11 @@
         name: maven 
         state: present
     
+    - name: Create roboshop user 
+      ansible.builtin.include_role:
+       name: common 
+       tasks_from: roboshop_user.yaml
+    
     - name: delete and get the {{ component }} code 
       ansible.builtin.include_role: 
        name: common 
