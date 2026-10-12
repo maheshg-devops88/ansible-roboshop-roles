@@ -53,6 +53,6 @@
         dest: /etc/systemd/system/{{ component }}.service
       notify:
         - daemon reload
-        - start "{{ component }}" service
+        - start {{ component }} service
 
   
