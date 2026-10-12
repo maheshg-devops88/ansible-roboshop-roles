@@ -19,6 +19,11 @@
       path: /app
       state: latest
   
+  - name: remove {{ component }} service to /etc/systemd/system/{{ component }}.service
+    ansible.builtin.file:
+         path: /etc/systemd/system/{{ component }}.service
+         state: absent
+
   - name: copy {{ component }} service to /etc/systemd/system/{{ component }}.service
     ansible.builtin.template:
       src: "{{ component }}.service.j2"
