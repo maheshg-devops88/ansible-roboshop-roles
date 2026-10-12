@@ -1,6 +1,8 @@
 
   - name: Enable and install nodejs 
-    ansible.builtin.include_role: 
+    tags: 
+      - deployment
+    ansible.builtin.import_role: 
       name: common 
       tasks_from: nodejs_install.yaml
        
