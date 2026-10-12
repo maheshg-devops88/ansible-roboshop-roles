@@ -4,7 +4,9 @@
       name: common 
       tasks_from: nodejs_install.yaml
        
-  - name: Create roboshop user 
+  - name: Create roboshop user
+    tags:
+     - deployment 
     ansible.builtin.include_role:
        name: common 
        tasks_from: roboshop_user.yaml
