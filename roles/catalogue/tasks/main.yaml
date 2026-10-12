@@ -22,7 +22,13 @@
   - name: configure mongosh and upload DB
     ansible.builtin.include_role:
       name: common 
-      tasks_from: mongo_config.yaml
+      tasks_from: mongo_config.yaml 
+  
+  - name: remove {{ component }} service to /etc/systemd/system/{{ component }}.service
+    ansible.builtin.file:
+         path: /etc/systemd/system/{{ component }}.service
+         state: absent
+      
 
   - name: copy {{ component }} service to /etc/systemd/system/{{ component }}.service
     ansible.builtin.template:
