@@ -4,5 +4,5 @@ regions:
 hostnames:
   - private-ip-address
 
-keyed_groups:
-    - prefix: tags.Name
+groups:
+    frontend: tags.name =='frontend-dev'
