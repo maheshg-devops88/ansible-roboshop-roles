@@ -17,4 +17,4 @@
   #     - PyMySQL
 
   - name: setup root password
-    ansible.builtin.command: mysql_secure_installation --set-root-pass "{{ sql_password }}"
+    ansible.builtin.command: mysql_secure_installation --set-root-pass "{{ mysql_password }}"
