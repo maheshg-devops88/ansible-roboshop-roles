@@ -5,4 +5,4 @@
   tasks:
     - name: test ping connectivity
       ansible.builtin.ping: 
-       
+       data: pong
