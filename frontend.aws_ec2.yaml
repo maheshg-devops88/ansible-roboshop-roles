@@ -5,4 +5,4 @@ hostnames:
   - private-ip-address
 
 groups:
-    frontend: tags.name == 'frontend-dev'
+    frontend: tags.Name == 'frontend-dev'
