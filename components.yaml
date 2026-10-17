@@ -1,6 +1,6 @@
 ---
 - name: Configuring {{ component }}
-  serial: 4
+  #serial: 4
   hosts: "{{ component }}"
   become: true
   roles:
