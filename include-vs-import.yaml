@@ -1,0 +1,6 @@
+---
+- name: diff include vs import 
+  connection: local
+  hosts: local 
+  roles:
+    - include-vs-import
