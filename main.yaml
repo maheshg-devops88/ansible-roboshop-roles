@@ -1,6 +1,6 @@
 ---
 - name: Deploy the playbook using role 
   connection: local
-  hosts: all
+  hosts: local
   roles:
       - demo
