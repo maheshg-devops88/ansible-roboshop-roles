@@ -24,17 +24,8 @@
       name: common 
       tasks_from: mongo_config.yaml 
   
-  - name: remove {{ component }} service to /etc/systemd/system/{{ component }}.service
-    ansible.builtin.file:
-         path: /etc/systemd/system/{{ component }}.service
-         state: absent
-      
-
-  - name: copy {{ component }} service to /etc/systemd/system/{{ component }}.service
-    ansible.builtin.template:
-      src: "{{ component }}.service.j2"
-      dest: /etc/systemd/system/{{ component }}.service
-    notify:
-      - daemon reload
-      - start {{ component }} service
+  - name: reload and start {{ component }} service 
+    ansible.builtin.import_role: 
+      name: common 
+      tasks_from: systemd_service.yaml
 
